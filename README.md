@@ -19,7 +19,7 @@
 
 Create a Mosaic of images that builds up an image.
 
-For detailed information, here is my report: [Creating A Mosaic of Several Tiny Images]([https://github.com/JinhangZhu/mosaic-closest/blob/master/report/Creating%20A%20Mosaic%20of%20Several%20Tiny%20Images.pdf](https://github.com/JinhangZhu/mosaic-closest/blob/master/report/Creating A Mosaic of Several Tiny Images.pdf))
+For detailed information, here is my report: [Creating A Mosaic of Several Tiny Images](https://github.com/JinhangZhu/mosaic-closest/blob/master/report/Creating%20A%20Mosaic%20of%20Several%20Tiny%20Images.pdf)
 
 Check it out!
 
