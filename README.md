@@ -1,7 +1,7 @@
 <h2 align="center">mosaic-closest</h2>
 <p align="center"><b>Create a Mosaic of images that builds up an image</b></p>
-
 <br>
+
 <h2>Table of Contents</h2>
 <!-- TOC -->
 
@@ -20,6 +20,11 @@
 Create a Mosaic of images that builds up an image.
 
 Check it out!
+
+<div align="center">
+<img src="https://i.loli.net/2019/10/11/MLte568RyZ7j1JN.png" height="200px" alt="original" >
+<img src="https://i.loli.net/2019/10/11/clMqgAhaR5TeibJ.png" height="200px" alt="mosaic" >
+</div>
 
 ## Usage
 
