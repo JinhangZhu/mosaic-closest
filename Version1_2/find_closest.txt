@@ -1,0 +1,119 @@
+# 
+#   Find the similarist image from the resource images by comparing euclidean distance
+# #
+def find_closest_image(q, shared_resource_images, resource_images_shape, shared_result, img_shape, set_height, set_width):
+    shared_images_array = np.frombuffer(shared_resource_images, dtype=np.uint8)
+    resource_images = shared_images_array.reshape(resource_images_shape)
+    while True:
+        [row, col, pad] = q.get()
+        print('row: {}, col: {}'.format(row, col))
+        min_dist_img = float("inf")     #   It acts as an unbounded upper value for comparison. This is useful for finding lowest values for something
+        # min_dist_hist = float("inf")
+        # min_dist_b = float("inf")
+        # min_dist_g = float("inf")
+        # min_dist_r = float("inf")
+        min_diff_lumi = 255
+        min_diff_lumi_b = 255
+        min_diff_lumi_g = 255
+        min_diff_lumi_r = 255
+        min_diff_min = 255
+        min_diff_max = 255
+        min_diff_min_b = 255
+        min_diff_min_g = 255
+        min_diff_min_r = 255
+        min_diff_max_b = 255
+        min_diff_max_g = 255
+        min_diff_max_r = 255
+
+        min_img = None
+        for resource_image in resource_images:
+            # 
+            # Calculate euclidean distance between the image and the pad
+            # #
+            dist_img = img_distance(pad, resource_image)
+            # dist_hist = hist_distance(pad, resource_image)
+            # dist_b, dist_g, dist_r = hist_distance_channel(pad, resource_image)
+            # 1
+            # Auxiliary methods to eliminate converse-looking images
+            # #
+            if len(np.shape(resource_image)) is 2:
+                gray_pad = cv2.cvtColor(pad, cv2.COLOR_BGR2GRAY)
+                diff_lumi = abs(get_luminance(resource_image) - get_luminance(gray_pad))
+                min_im, max_im = get_dy_range(resource_image)
+                min_pad, max_pad = get_dy_range(gray_pad)
+                diff_min = abs(min_im-min_pad)
+                diff_max = abs(max_im-max_pad)
+                        # if dist_img < min_dist_img and dist_hist < min_dist_hist:
+                        #     min_dist_img = dist_img
+                        #     min_dist_hist = dist_hist
+                        #     min_img = resource_image
+                        # if dist_b < min_dist_b and dist_g < min_dist_g and dist_r < min_dist_r:
+                        #     min_dist_b = dist_b
+                        #     min_dist_g = dist_g
+                        #     min_dist_r = dist_r
+                        #     min_img = resource_image
+                if dist_img < min_dist_img and diff_lumi < min_diff_lumi and diff_min < min_diff_min and diff_max < min_diff_max:
+                    min_dist_img = dist_img
+                    min_diff_lumi = diff_lumi
+                    min_diff_min = diff_min
+                    min_diff_max = diff_max
+                    min_img = resource_image
+            elif len(np.shape(resource_image)) is 3:
+                lumi_srt_b, lumi_srt_g, lumi_srt_r = get_luminance(resource_image)
+                lumi_pad_b, lumi_pad_g, lumi_pad_r = get_luminance(pad)
+                diff_lumi_b = abs(lumi_srt_b - lumi_pad_b)
+                diff_lumi_g = abs(lumi_srt_g - lumi_pad_g)
+                diff_lumi_r = abs(lumi_srt_r - lumi_pad_r)
+                min_im_b, max_im_b, min_im_g, max_im_g, min_im_r, max_im_r = get_dy_range(resource_image)
+                min_pad_b, max_pad_b, min_pad_g, max_pad_g, min_pad_r, max_pad_r = get_dy_range(pad)
+                diff_min_b = abs(min_im_b - min_pad_b)
+                diff_min_g = abs(min_im_b - min_pad_b)
+                diff_min_r = abs(min_im_b - min_pad_b)
+                diff_max_b = abs(max_im_b - max_pad_b)
+                diff_max_g = abs(max_im_b - max_pad_b)
+                diff_max_r = abs(max_im_b - max_pad_b)
+                state_lumi = diff_lumi_b < min_diff_lumi_b and diff_lumi_g < min_diff_lumi_g and diff_lumi_r < min_diff_lumi_r
+                state_min = diff_min_b < min_diff_min_b and diff_min_g < min_diff_min_g and diff_min_r < min_diff_min_r
+                state_max = diff_max_b < min_diff_max_b and diff_max_g < min_diff_max_g and diff_max_r < min_diff_max_r
+                        # if dist_img < min_dist_img and dist_hist < min_dist_hist:
+                        #     min_dist_img = dist_img
+                        #     min_dist_hist = dist_hist
+                        #     min_img = resource_image
+                        # if dist_b < min_dist_b and dist_g < min_dist_g and dist_r < min_dist_r:
+                        #     min_dist_b = dist_b
+                        #     min_dist_g = dist_g
+                        #     min_dist_r = dist_r
+                        #     min_img = resource_image
+                if dist_img < min_dist_img and state_lumi and state_min and state_max:
+                    min_dist_img = dist_img
+                    min_diff_lumi_b
+                    min_diff_lumi_g
+                    min_diff_lumi_r
+                    min_diff_min_b
+                    min_diff_min_g
+                    min_diff_min_r
+                    min_diff_max_b
+                    min_diff_max_g
+                    min_diff_max_r
+                    min_img = resource_image
+                # 2
+                # Calculate euclidean distance between two histograms
+                # #
+                # if dist_hist < min_dist_hist:
+                #     min_dist_hist = dist_hist
+                #     min_img = resource_image
+                # 3
+                # # Calculate euclidean distance between two histograms in channels
+                # # #
+                # if dist_b < min_dist_b and dist_g < min_dist_g and dist_r < min_dist_r:
+                #     min_dist_b = dist_b
+                #     min_dist_g = dist_g
+                #     min_dist_r = dist_r
+                #     min_img = resource_image
+        im_res = np.frombuffer(shared_result, dtype=np.uint8).reshape(img_shape)
+        im_res[row:row+set_height, col:col+set_width, :] = min_img
+        # 
+        # Necessary method of JoinableQueue
+        # To terminate the finished process
+        # #
+        q.task_done()
