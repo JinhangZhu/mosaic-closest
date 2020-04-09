@@ -48,15 +48,10 @@ python mosaic.py
 
 ## Contributors
 
-<table>
-    <tbody>
-        <tr>
-            <td>
-                <a target="_blank" href="https://github.com/JinhangZhu"><img width="50px" src="https://www.gravatar.com/userimage/145161997/43477ce1de4c187dfb97fff0a6765272?size=120"></a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<a href="https://github.com/jinhangzhu/mosaic-closest/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=jinhangzhu/mosaic-closest" />
+</a>
+
 
 ## Maintainers
 
